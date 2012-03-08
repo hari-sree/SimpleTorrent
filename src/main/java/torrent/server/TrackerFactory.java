@@ -1,20 +1,18 @@
 package torrent.server;
 
-import torrent.Torrent;
+import java.lang.reflect.Proxy;
+
+import torrent.Configuration;
 
 public class TrackerFactory {
-	public TrackerService trackerInstance() {
-		return new TrackerService() {
+	public TrackerService trackerInstance(Configuration conf) throws Exception {
 
-			@Override
-			public void registerTorrent(Torrent torrent) {
+		TrackerService tracker = (TrackerService) Proxy.newProxyInstance(this
+				.getClass().getClassLoader(),
+				new Class[] { TrackerService.class },
+				new ServerInvocationHandler(conf));
 
-			}
+		return tracker;
 
-			@Override
-			public TrackerStatus trackerStatus() {
-				return null;
-			}
-		};
 	}
 }

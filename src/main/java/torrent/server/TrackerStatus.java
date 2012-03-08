@@ -1,5 +1,11 @@
 package torrent.server;
 
-public class TrackerStatus {
+import java.io.Serializable;
 
+public class TrackerStatus implements Serializable {
+	String address;
+
+	public String getAddress() {
+		return "finetracker";
+	}
 }
